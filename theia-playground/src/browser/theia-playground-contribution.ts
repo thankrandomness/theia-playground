@@ -1,6 +1,7 @@
 import { injectable, inject } from "inversify";
 import { CommandContribution, CommandRegistry, MenuContribution, MenuModelRegistry, MessageService } from "@theia/core/lib/common";
-import { CommonMenus } from "@theia/core/lib/browser";
+import { CommonMenus, FrontendApplicationContribution, ApplicationShell, WidgetManager } from "@theia/core/lib/browser";
+import { DnDActivityWidget } from "./dnd-activity-widget";
 
 export const TheiaPlaygroundCommand = {
     id: 'TheiaPlayground.command',
@@ -29,5 +30,20 @@ export class TheiaPlaygroundMenuContribution implements MenuContribution {
             commandId: TheiaPlaygroundCommand.id,
             label: 'Say Hello'
         });
+    }
+}
+
+@injectable()
+export class TheiaPlaygroundFrontendApplicationContribution implements FrontendApplicationContribution {
+
+    @inject(ApplicationShell)
+    appShell: ApplicationShell;
+
+    @inject(WidgetManager)
+    widgetManager: WidgetManager;
+
+    async initializeLayout() {
+        const widget = await this.widgetManager.getOrCreateWidget(DnDActivityWidget.ID);
+        await this.appShell.addWidget(widget, { area: 'left', rank: 1000 });
     }
 }

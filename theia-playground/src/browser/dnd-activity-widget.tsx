@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { ReactWidget } from "@theia/core/lib/browser/widgets/react-widget";
-import { postConstruct } from "inversify";
+import { postConstruct, injectable } from "inversify";
 
+@injectable()
 export class DnDActivityWidget extends ReactWidget {
 
     static readonly ID = 'theia-playground:dnd-activity-widget';
@@ -17,8 +18,18 @@ export class DnDActivityWidget extends ReactWidget {
         this.update();
     }
 
-    protected render() {
-        return <div></div>;
+    protected render(): React.ReactNode {
+        return (<div>
+            <h1 id='node1'>
+                <i className='fa fa-cubes'></i>
+            </h1>
+            <h1 id='node2'>
+                <i className='fa fa-cubes'></i>
+            </h1>
+            <h1 id='node3'>
+                <i className='fa fa-cubes'></i>
+            </h1>
+        </div>);
     }
 
 }
