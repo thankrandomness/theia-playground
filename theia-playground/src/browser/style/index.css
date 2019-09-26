@@ -1,0 +1,8 @@
+#playground-widget-container h1 {
+    color: var(--theia-ui-font-color1);
+    background-color: var(--theia-layout-color0);
+    font-weight: 400;
+    text-align: center;
+    padding: 10px;
+}
+

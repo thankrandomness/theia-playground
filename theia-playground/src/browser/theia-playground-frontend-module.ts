@@ -1,6 +1,5 @@
-/**
- * Generated using theia-extension-generator
- */
+
+import '../../src/browser/style/index.css';
 
 import { TheiaPlaygroundCommandContribution, TheiaPlaygroundMenuContribution, TheiaPlaygroundFrontendApplicationContribution } from './theia-playground-contribution';
 import {
@@ -11,6 +10,7 @@ import {
 import { ContainerModule } from "inversify";
 import { WidgetFactory, FrontendApplicationContribution } from '@theia/core/lib/browser';
 import { DnDActivityWidget } from './dnd-activity-widget';
+import { DnDService } from './dnd-service';
 
 export default new ContainerModule(bind => {
 
@@ -26,4 +26,7 @@ export default new ContainerModule(bind => {
     }).inSingletonScope();
 
     bind(FrontendApplicationContribution).to(TheiaPlaygroundFrontendApplicationContribution).inSingletonScope();
+
+    bind(DnDService).toSelf().inSingletonScope();
+    bind(FrontendApplicationContribution).toService(DnDService);
 });

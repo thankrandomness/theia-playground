@@ -2,6 +2,18 @@ image:
   file: .gitpod.dockerfile
 ports:
   - port: 3000
-github:
-  prebuilds:
-    branches: true
+tasks:
+  - init: yarn
+    command: |
+      gp sync-done init
+      yarn --cwd theia-playground watch
+  - command: |
+      gp sync-await init
+      yarn --cwd browser-app watch
+    name: Watch browser-app
+    openMode: split-right
+  - command: |
+      gp sync-await init
+      yarn --cwd browser-app start ../workspace
+    name: Run browser-app
+    openMode: tab-after
